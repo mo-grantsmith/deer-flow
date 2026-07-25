@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Pre-cache the application dependencies.
-RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv \
+RUN \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --locked --no-install-project
@@ -20,7 +20,7 @@ RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv \
 COPY . /app
 
 # Install the application dependencies.
-RUN --mount=type=cache,id=uv-cache,target=/root/.cache/uv \
+RUN \
     uv sync --locked
 
 EXPOSE 8000

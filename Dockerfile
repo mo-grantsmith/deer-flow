@@ -11,10 +11,8 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Pre-cache the application dependencies.
-RUN \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --locked --no-install-project
+COPY uv.lock pyproject.toml ./
+RUN uv sync --locked --no-install-project
 
 # Copy the application into the container.
 COPY . /app

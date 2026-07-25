@@ -27,4 +27,4 @@ EXPOSE 8000
 RUN useradd -m appuser
 USER appuser
 
-CMD ["uv", "run", "python", "server.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/app/.venv/bin/python", "server.py", "--host", "0.0.0.0", "--port", "8000"]
